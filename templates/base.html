@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacy Management System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="{{ url_for('index') }}" class="navbar-brand">Delta Pharmacy</a>
+            <ul class="navbar-nav">
+                {% if 'user_id' in session %}
+                    <li><span class="nav-user">Welcome, {{ session['username'] }}</span></li>
+                    <li><a href="{{ url_for('index') }}" class="nav-link">Dashboard</a></li>
+                    <li><a href="{{ url_for('add_medicine') }}" class="nav-link">Add Medicine</a></li>
+                    <li><a href="{{ url_for('logout') }}" class="nav-link btn btn-logout">Logout</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('login') }}" class="nav-link">Login</a></li>
+                    <li><a href="{{ url_for('signup') }}" class="nav-link">Sign Up</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+    <footer class="footer">
+        <p>&copy; 2025 Delta Pharmacy Management System. All rights reserved.</p>
+    </footer>
+</body>
+</html>

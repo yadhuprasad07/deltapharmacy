@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="form-container">
+    <h1>Edit Medicine Details</h1>
+    <form method="POST" action="{{ url_for('edit_medicine', medicine_id=medicine.id) }}" class="styled-form">
+        <div class="form-group">
+            <label for="name">Medicine Name</label>
+            <input type="text" id="name" name="name" class="form-control" value="{{ medicine.name }}" required>
+        </div>
+        <div class="form-group">
+            <label for="manufacturer">Manufacturer</label>
+            <input type="text" id="manufacturer" name="manufacturer" class="form-control" value="{{ medicine.manufacturer }}" required>
+        </div>
+        <div class="form-group">
+            <label for="expiry_date">Expiry Date</label>
+            <input type="date" id="expiry_date" name="expiry_date" class="form-control" value="{{ medicine.expiry_date.strftime('%Y-%m-%d') }}" required>
+        </div>
+        <div class="form-group">
+            <label for="quantity">Quantity</label>
+            <input type="number" id="quantity" name="quantity" class="form-control" min="0" value="{{ medicine.quantity }}" required>
+        </div>
+        <div class="form-group">
+            <label for="price">Price</label>
+            <input type="number" id="price" name="price" class="form-control" step="0.01" min="0" value="{{ medicine.price }}" required>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Update Medicine</button>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
